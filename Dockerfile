@@ -1,10 +1,17 @@
 FROM ubuntu:18.04
 
-MAINTAINER z4yx <z4yx@users.noreply.github.com>
+LABEL maintaner lgili <lgili@users.noreply.github.com>
 
 # build with "docker build --build-arg PETA_VERSION=2020.2 --build-arg PETA_RUN_FILE=petalinux-v2020.2-final-installer.run -t petalinux:2020.2 ."
 
 # install dependences:
+COPY 	sources.list /etc/apt/sources.list
+
+RUN 	dpkg --add-architecture i386 	&& \
+    	apt-get update -y 		&& \
+    	apt-get clean all 		&& \
+    	apt-get install -y -qq iputils-ping sudo rsync apt-utils x11-utils
+
 
 ## Do not pull from China
 # ARG UBUNTU_MIRROR=mirror.tuna.tsinghua.edu.cn
@@ -98,3 +105,4 @@ WORKDIR /home/vivado/project
 
 #add vivado tools to path
 RUN echo "source /opt/Xilinx/petalinux/settings.sh" >> /home/vivado/.bashrc
+RUN echo "source /opt/Xilinx/win/Vivado/2020.2/settings64.sh" >> /home/vivado/.bashrc
