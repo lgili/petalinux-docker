@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 LABEL maintaner lgili <lgili@users.noreply.github.com>
 
